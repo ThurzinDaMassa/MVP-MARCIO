@@ -8,6 +8,19 @@ function updateProgress(){
 checks.forEach(check=>{check.checked=localStorage.getItem(`textozen-${check.dataset.study}`)==='1';check.addEventListener('change',()=>{localStorage.setItem(`textozen-${check.dataset.study}`,check.checked?'1':'0');updateProgress();});});
 updateProgress();
 
+const filterButtons=[...document.querySelectorAll('[data-filter]')];
+filterButtons.forEach(button=>button.addEventListener('click',()=>{filterButtons.forEach(item=>item.classList.toggle('active',item===button));document.querySelectorAll('[data-competency]').forEach(card=>card.hidden=button.dataset.filter!=='all'&&card.dataset.competency!==button.dataset.filter);}));
+
+const flashcards=[
+  ['O que diferencia repertório citado de repertório produtivo?','O repertório produtivo é explicado e conectado diretamente à tese ou ao argumento, ajudando a sustentar o ponto de vista.'],
+  ['Quais são os elementos centrais da proposta de intervenção?','Agente, ação, meio ou modo, finalidade e detalhamento, sempre relacionados ao problema discutido e respeitando os direitos humanos.'],
+  ['Qual é a função da tese na introdução?','Delimitar o ponto de vista defendido e indicar a direção argumentativa que será desenvolvida no texto.'],
+  ['Usar muitos conectivos garante 200 na Competência 4?','Não. É necessário que os mecanismos coesivos sejam variados, adequados e estabeleçam relações lógicas reais, sem uso mecânico.'],
+  ['O que torna um argumento bem desenvolvido?','Explicar como e por que ele sustenta a tese, articulando causa, consequência, evidência, exemplo ou repertório pertinente.']
+];
+const flashQuestion=document.querySelector('#flashQuestion'),flashAnswer=document.querySelector('#flashAnswer');
+if(flashQuestion&&flashAnswer){let current=0;const renderFlash=()=>{flashQuestion.textContent=flashcards[current][0];flashAnswer.textContent=flashcards[current][1];flashAnswer.hidden=true;document.querySelector('#revealFlash').textContent='Revelar resposta';document.querySelector('#flashCurrent').textContent=current+1;document.querySelector('#flashTotal').textContent=flashcards.length;};document.querySelector('#revealFlash')?.addEventListener('click',event=>{flashAnswer.hidden=!flashAnswer.hidden;event.currentTarget.textContent=flashAnswer.hidden?'Revelar resposta':'Ocultar resposta';});document.querySelector('#flashPrev')?.addEventListener('click',()=>{current=(current-1+flashcards.length)%flashcards.length;renderFlash();});document.querySelector('#flashNext')?.addEventListener('click',()=>{current=(current+1)%flashcards.length;renderFlash();});renderFlash();}
+
 const fields=[...document.querySelectorAll('[data-plan]')];
 const preview={tema:'pvTema',arg1:'pvArg1',arg2:'pvArg2',intervencao:'pvIntervencao'};
 function renderPlan(){fields.forEach(f=>{const target=document.querySelector(`#${preview[f.dataset.plan]}`);if(target&&f.value.trim())target.textContent=f.value.trim();});}
