@@ -1,4 +1,4 @@
-# TextoZen
+# Cola de Redação
 
 Aplicação acadêmica para avaliar redações com IA, feita com Java, Spring Boot, JavaScript, CSS e H2.
 
