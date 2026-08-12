@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Criar conta — TextoZen</title><link rel="stylesheet" href="/css/style.css"></head>
+<body class="auth-body">
+  <a class="brand auth-brand" href="/"><span>✦</span> TextoZen</a>
+  <main class="auth-wrap"><section class="auth-card">
+    <div class="eyebrow">COMECE AGORA</div><h1>Crie sua conta</h1><p>Grátis, simples e pronta em poucos segundos.</p>
+    <div class="alert error" th:if="${erro}" th:text="${erro}"></div>
+    <form method="post" th:action="@{/cadastro}">
+      <label>Nome completo<input name="nome" autocomplete="name" minlength="2" maxlength="80" placeholder="Seu nome" required autofocus></label>
+      <label>E-mail<input type="email" name="email" autocomplete="email" placeholder="voce@email.com" required></label>
+      <label>Senha<input type="password" name="senha" autocomplete="new-password" minlength="6" placeholder="Mínimo de 6 caracteres" required></label>
+      <button type="submit" class="btn primary full">Criar conta →</button>
+    </form>
+    <p class="auth-foot">Já tem uma conta? <a href="/login">Entrar</a></p>
+  </section></main>
+</body></html>

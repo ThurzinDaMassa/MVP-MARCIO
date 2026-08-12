@@ -1,0 +1,6 @@
+target/
+.idea/
+.vscode/settings.json
+data/
+.env
+*.log
